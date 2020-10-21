@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script>       
+        
+    </script>
+</head>
+<div class="container-fluid bg-info" id="container">
+    <div class="modal-dialog">
+      <div class="modal-content">
+                          <div style="text-align:center;clear:both;padding-top:10px">
+        <span id="Span1" href="/questionFR" style="cursor:pointer"><img src="images/fr.jpg" style="border-radius:50%" width="44px" /></span>
+        <span id="Span2" href="/questionAR" style="cursor:pointer"><img src="images/ar.gif" width="50px" /></span>
+    </div>
+
+         <div class="modal-header">
+            <h3><span class="label label-warning" id="qid"></span><span id="text_question"></span> </h3>
+        </div>
+        <div class="modal-body">
+            <div class="col-xs-3 col-xs-offset-5">
+               <div id="loadbar" style="display: none;">
+                  <div class="blockG" id="rotateG_01"></div>
+                  <div class="blockG" id="rotateG_02"></div>
+                  <div class="blockG" id="rotateG_03"></div>
+                  <div class="blockG" id="rotateG_04"></div>
+                  <div class="blockG" id="rotateG_05"></div>
+                  <div class="blockG" id="rotateG_06"></div>
+                  <div class="blockG" id="rotateG_07"></div>
+                  <div class="blockG" id="rotateG_08"></div>
+              </div>
+ 
+          </div>
+                           <div>
+              <span id="precedent" onclick="change_question(-1)" class="precedent"><img src="images/gauche.png" width="60px" /></span>
+              </div>
+          <div>
+              <span id="suivant"  onclick="change_question(1)" class="suivant"><img src="images/droite.png" width="60px" /></span>
+          </div>
+            <div id="merci" style="text-align:center">
+                <h2 id="hmerci"></h2>
+            </div>

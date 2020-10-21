@@ -1,0 +1,32 @@
+<%- include("_header") -%>
+
+<h1>Ajouter une fiche</h1>
+
+<form action="/create/<%= model %>" method="post">
+  <div class="form-horizontal">
+
+   <input type="hidden" id="id_question name="id_question" value="<%= model %>">
+
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="questionar">Reponse AR </label>
+  <div class="col-sm-7">
+    <input class="form-control" name="reponse_ar" id="reponse_ar"  />
+  </div>
+</div>
+<div class="form-group row">
+  <label class="col-form-label col-sm-2" for="auteur">Reponse FR </label>
+  <div class="col-sm-7">
+    <input class="form-control" name="reponse_fr" id="reponse_fr" />
+  </div>
+</div>
+    <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-10">
+        <input type="submit" value="Ajouter" class="btn btn-default btn-success" />
+        <a class="btn btn-outline-dark cancel" href="/livres">Annuler</a>
+      </div>
+    </div>
+  </div>
+</form>
+
+<%- include("_footer") -%>

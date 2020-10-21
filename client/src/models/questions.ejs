@@ -1,0 +1,108 @@
+<%- include("_header") -%>
+
+
+<div class="form-group">
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Question</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control col-md-12 col-xs-12" id="question" onchange="ListeReponse(this.value)">
+                            
+
+                            <% for (const que of question) { %>
+                            <option value="<%= que.id %>"><%= que.question_ar %> ; <%= que.question_fr %></option>
+                            <% } %>
+                            </select>
+                        </div>
+
+                    </div>
+<h1>Liste des Reponses (<%= reponse.length %>)</h1>
+
+<div class="table-responsive-sm">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Reponse AR</th>
+        <th>Reponse FR</th>
+        <th class="d-print-none">
+          <a class="btn btn-sm btn-success" href="/create/<%= question[1].id %>">Ajouter</a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (const rep of reponse) { %>
+        <tr>
+          <td><%= rep.id %></td>
+          <td><%= rep.reponse_ar %></td>
+          <td><%= rep.response_fr %></td>
+          <td class="d-print-none">
+            <a class="btn btn-sm btn-warning" href="/edit/<%= rep.id %>">Modifier</a>
+            <a class="btn btn-sm btn-danger" onclick=' return deleteReponse(event,"<%= rep.id %>")'>Effacer</a>
+          </td>
+        </tr>
+      <% } %>
+
+      
+    </tbody>
+  </table>
+</div>
+<div id="popup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="popup-header">Modal Header</h4>
+            </div>
+            <div class="modal-body" id="popup-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer" id="popup-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    function modal() {
+        $("#popup").modal()
+    }
+   
+</script>
+<script>
+
+
+      function deleteReponse (event,id)
+{
+        var id_rep= parseInt(id)
+       $.ajax({
+    type:"POST",
+    dataType:"json",
+    contentType: "application/json",
+    data:JSON.stringify({   
+           id :id_rep
+          }),
+    url:"/deleteReponse",
+})
+.done(function(response){
+      console.log("Response of update: ",response)
+})
+.fail(function(xhr, textStatus, errorThrown){
+      console.log("ERROR: ",xhr.responseText)
+      return xhr.responseText;
+});
+      location.href="/questions"
+      }
+
+     function ListeReponse(id){
+location.href="/questions/"+id;
+     
+
+     }
+
+
+
+    </script>
+<%- include("_footer") -%>

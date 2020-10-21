@@ -1,0 +1,23 @@
+{
+  "name": "satisfaction",
+  "version": "1.0.0",
+  "description": "satisfaction Client",
+  "main": "login.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
+    "big-integer": "^1.6.48",
+    "ejs": "^2.7.4",
+    "express": "^4.17.1",
+    "knex": "^0.21.1",
+    "location-href": "^1.0.0",
+    "pg": "^7.18.2"
+  }
+}

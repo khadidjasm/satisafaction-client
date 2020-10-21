@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>AppTestPG</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Satisfaction Client</a>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+         
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/Login">Déconnexion</a>
+        </li>
+      </ul>
+    </nav>
+
+<link rel="stylesheet" href="/css/quiz.css">
+<div class="container-fluid bg-info" id="container">
+    <div class="modal-dialog">
+      <div class="modal-content">
+                          <div style="text-align:center;clear:both;padding-top:10px">
+        <span id="Span1" onclick="change_lang('fr')" style="cursor:pointer"><img src="/images/fr.jpg" style="border-radius:50%" width="44px" /></span>
+        <span id="Span2" onclick="change_lang('ar')" style="cursor:pointer"><img src="/images/ar.gif" width="50px" /></span>
+    </div>
+
+         <div class="modal-header">
+            <h3><span class="label label-warning" id="qid"></span><span id="text_question"></span> </h3>
+        </div>
+      
+        <div class="modal-body">
+            <div class="col-xs-3 col-xs-offset-5">
+               <div id="loadbar" style="display: none;">
+                  <div class="blockG" id="rotateG_01"></div>
+                  <div class="blockG" id="rotateG_02"></div>
+                  <div class="blockG" id="rotateG_03"></div>
+                  <div class="blockG" id="rotateG_04"></div>
+                  <div class="blockG" id="rotateG_05"></div>
+                  <div class="blockG" id="rotateG_06"></div>
+                  <div class="blockG" id="rotateG_07"></div>
+                  <div class="blockG" id="rotateG_08"></div>
+              </div>
+ 
+          </div>
+                           <div>
+              <span   id="precedent"  onclick='change_question(event,-1)'  class="precedent"><img src="/images/gauche.png" width="60px" /></span>
+              </div>
+          <div>
+              <span   id="suivant" onclick='change_question(event,1)' class="suivant"><img src="/images/droite.png" width="60px" /></span>
+          </div>
+           <div >
+<div id="merci" style="text-align:center">
+                <h2 id="hmerci"></h2>
+            </div>
+
+<script type="text/javascript">
+var lenght= <%= questions.length %>;
+
+
+
+  var qnum;
+window.session= Math.round((Math.random() + 1) * 99999);
+</script>
+          
+           
+   <div id="quiz"> <h1 id="hquestion"> 
+  <%= reponses[1].question_ar %> </h1>
+
+    <% for (const reponse of reponses) { %>
+
+  <label   id="lquestion" class="element-animation1 btn btn-lg btn-primary btn-block " onclick=' return Ajoutsondage(event,"<%= reponse.id %>")'/> <%= reponse.reponse_ar %></label>
+                       </div> 
+                       
+<script type="text/javascript">
+   qnum =<%= reponse.id_question %> ;  
+</script>
+<% } %>
+
+<script type="text/javascript">
+function change_question(event,op) {
+
+
+     qnum = qnum + op;
+     
+     
+      num=BigInt(qnum);
+  if(num!=0 && num < lenght+1) {
+
+   
+ 
+  location.href="/questionAR/"+num
+        }
+        else {
+        
+
+                    $("#quiz").css("display", "none");
+                    $("#quiz").html("");
+
+                    $("#precedent").hide();
+                    $("#suivant").hide();
+                    $("#merci").fadeIn();
+                    $("#hquestion").html(" ");
+                    $("#lquestion").html(" ");
+                    $("#lquestion").removeClass("element-animation1 btn btn-lg btn-primary btn-block");
+                        $("#hmerci").text("شكرا على المشاركة")
+                        $("#qid").html("شكرا");
+
+                        setTimeout(function () {
+                        location.href="/questionAR/"
+                        
+
+                    }, 10000);
+                  
+        }
+        
+}
+function change_lang(lang) {
+    if (lang=='fr') {
+
+    location.href="/questionFR/"+qnum
+    }
+    else {
+    change_question(event,0);
+    }
+}
+
+</script>
+            </div>
+
+   </div>
+   </div>
+   </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+
+var session = window.session;
+      function Ajoutsondage (event,id)
+{ 
+             var  id_question= qnum;
+        var id= parseInt(id)
+       var date = new Date();
+       $.ajax({
+    type:"POST",
+    dataType:"json",
+    contentType: "application/json",
+    data:JSON.stringify({   
+           id_question: qnum,
+            id_reponse:id,
+            session,
+            date:date  
+          }),
+    url:"/Ajoutsondage",
+})
+.done(function(response){
+      console.log("Response of update: ",response)
+})
+.fail(function(xhr, textStatus, errorThrown){
+      console.log("ERROR: ",xhr.responseText)
+      return xhr.responseText;
+});
+      
+
+       
+         change_question(event,1);
+      }
+    </script>
+
+
+ 
+
+
+<%- include("footer1") -%>
